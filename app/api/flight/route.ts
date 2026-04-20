@@ -11,7 +11,7 @@ export async function GET(request: Request) {
   const apiKey = process.env.AVIATIONSTACK_API_KEY;
 
   if (!apiKey || apiKey === 'your_aviationstack_api_key_here') {
-     return NextResponse.json({ error: 'Aviationstack API key is not configured' }, { status: 500 });
+    return NextResponse.json({ error: 'Aviationstack API key is not configured' }, { status: 500 });
   }
 
   try {
@@ -19,15 +19,15 @@ export async function GET(request: Request) {
     if (!response.ok) {
       throw new Error('Failed to fetch from Aviationstack');
     }
-    
+
     const data = await response.json();
-    
+
     if (!data.data || data.data.length === 0) {
       return NextResponse.json({ error: 'Flight not found' }, { status: 404 });
     }
 
     const flightInfo = data.data[0];
-    
+
     // Helper to extract city from timezone (e.g. "Europe/London" -> "London")
     const extractCity = (timezoneStr: string) => {
       if (!timezoneStr) return undefined;
